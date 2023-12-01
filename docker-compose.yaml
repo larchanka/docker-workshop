@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  
+  backend:
+    container_name: backend
+    build:
+        context: ./backend
+        dockerfile: Dockerfile
+    depends_on:
+        - proxy
+    volumes:
+        - ./backend:/var/www/html/
+    ports:
+        - 8080:80
+
+  frontend:
+    container_name: frontend
+    build:
+        context: ./frontend
+        dockerfile: Dockerfile
+    depends_on:
+        - backend
+    volumes:
+        - ./frontend:/var/www/html/
+    ports:
+        - 3030:3030
+
+  proxy:
+    container_name: nginx
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    restart: always

@@ -1,0 +1,20 @@
+FROM node:18.16.0-alpine as BUILD
+
+RUN apk add --update bash && rm -rf /var/cache/apk/*
+RUN npm i -g nws
+
+WORKDIR /var/www/html/
+
+RUN npm install
+
+RUN npm build
+
+
+
+FROM node:18.16.0-alpine
+
+WORKDIR /var/www/html
+COPY --from=BUILD /var/www/html/build ./
+
+
+CMD ['npm', 'start']

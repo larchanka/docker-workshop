@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Hello World!!!!!</h1>
+
+  <ul id="id"></ul>
+
+  <script>
+    fetch('//api.site.local')
+      .then(resp => resp.json())
+      .then(({data}) => {
+        data.forEach(user => {
+          const li = document.createElement('li');
+          li.innerText = user.name;
+
+          document.getElementById('id').appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
